@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace :file do
+    resources :entries, only: :create
+  end
+  resources :shows, only: [] do
+    resources :entries, only: :index, controller: 'shows/entries'
+  end
 end

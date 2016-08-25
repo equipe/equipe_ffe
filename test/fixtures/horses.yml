@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  licence: MyString
+  chip_no: MyString
+  name: MyString
+  sire: MyString
+  dam: MyString
+  dam_sire: MyString
+  born_year: 1
+  color: MyString
+  breed: MyString
+  race: MyString
+  height: 1
+
+two:
+  licence: MyString
+  chip_no: MyString
+  name: MyString
+  sire: MyString
+  dam: MyString
+  dam_sire: MyString
+  born_year: 1
+  color: MyString
+  breed: MyString
+  race: MyString
+  height: 1

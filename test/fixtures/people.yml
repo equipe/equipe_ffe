@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  licence: MyString
+  birthday: 2016-08-24
+  club: one
+  region: one
+
+two:
+  first_name: MyString
+  last_name: MyString
+  licence: MyString
+  birthday: 2016-08-24
+  club: two
+  region: two

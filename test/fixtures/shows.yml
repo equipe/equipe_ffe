@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ffe_id: MyString
+  name: MyString
+  starts_on: 2016-08-24
+  ends_on: 2016-08-24
+
+two:
+  ffe_id: MyString
+  name: MyString
+  starts_on: 2016-08-24
+  ends_on: 2016-08-24

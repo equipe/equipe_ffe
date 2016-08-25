@@ -13,5 +13,11 @@
 !/log/.keep
 !/tmp/.keep
 
+# Can't be public
+/test/fixtures/files/conc1694854.xml
+/test/fixtures/files/conc1694861.xml
+
 # Ignore Byebug command history file.
 .byebug_history
+
+

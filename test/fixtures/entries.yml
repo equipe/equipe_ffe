@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  competition: one
+  ffe_id: 1
+  start_no: 1
+  rider: one
+  horse: one
+
+two:
+  competition: two
+  ffe_id: 2
+  start_no: 1
+  rider: two
+  horse: two

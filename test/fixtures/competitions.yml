@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  show: one
+  starts_on: 2016-08-24
+  competition_no: MyString
+  name: MyString
+  discipline: MyString
+  judgement_id: MyString
+
+two:
+  show: two
+  starts_on: 2016-08-24
+  competition_no: MyString
+  name: MyString
+  discipline: MyString
+  judgement_id: MyString
