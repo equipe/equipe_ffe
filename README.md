@@ -1,24 +1,5 @@
-# README
+# Web Service to convert FFE Entry file
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+`POST /entries`
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The request body contains the uploaded file content, it gets imported and converted to entries.json that app.equipe.com will read..
