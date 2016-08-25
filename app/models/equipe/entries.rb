@@ -43,6 +43,7 @@ class Equipe::Entries
   end
 
   def entries
+    # Start no and position should only be given when the start list is already randomized
     show.entries.joins(:competition).select(:id, 'competitions.competition_no AS competition_no', :start_no, 'start_no AS position', :rider_id, :horse_id, 'rider_id AS payer_id')
   end
 end
