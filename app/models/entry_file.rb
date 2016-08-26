@@ -76,7 +76,8 @@ class EntryFile
       competition.starts_on = item['date']
       competition.name = item['nom_categorie']
       competition.discipline = discipline
-      competition.judgement_id = item['profil_detail']
+      competition.late_entry_fee = item['montant_eng_terrain']
+      competition.judgement_id = item['nom_categorie']
       competition.save!
     end
   end
