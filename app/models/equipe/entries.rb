@@ -27,7 +27,7 @@ class Equipe::Entries
   attr_reader :show
 
   def competitions
-    show.competitions.select(:id, :competition_no, :name, :starts_on, :discipline, :judgement_id, 'true AS randomized', "'H'::text AS horse_pony", "'R'::text AS status")
+    show.competitions.select(:id, :competition_no, :name, :starts_on, :discipline, :judgement_id, :late_entry_fee, 'true AS randomized', "'H'::text AS horse_pony", "'R'::text AS status")
   end
 
   def people
