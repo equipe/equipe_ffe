@@ -43,11 +43,11 @@ class EntryFile
   end
 
   def organizer_id
-    doc.css('concours > organisateur').attr('num').value
+    doc.at_css('concours > organisateur').attr('num')
   end
 
   def organizer_name
-    doc.css('concours > organisateur').attr('nom').value.mb_chars.titlecase
+    doc.at_css('concours > organisateur').attr('nom').mb_chars.titlecase
   end
 
   def fetch_show
@@ -55,15 +55,15 @@ class EntryFile
   end
 
   def show_id
-    doc.css('concours').attr('num').value
+    doc.at_css('concours').attr('num')
   end
 
   def show_name
-    doc.css('concours').attr('nom').value.mb_chars.titlecase
+    doc.at_css('concours').attr('nom').mb_chars.titlecase
   end
 
   def discipline
-    @discipline ||= DISCIPLINE[doc.css('concours').attr('discipline').value]
+    @discipline ||= DISCIPLINE[doc.at_css('concours').attr('discipline')]
   end
 
   def dates
@@ -77,7 +77,14 @@ class EntryFile
       competition.name = item['nom_categorie']
       competition.discipline = discipline
       competition.late_entry_fee = item['montant_eng_terrain']
-      competition.judgement_id = item['nom_categorie']
+
+      if discipline == 'D'
+        competition.judgement_id = item['nom_categorie']
+      else
+        detail = item.at_css("profil > resultat > detail[id='#{item['profil_detail']}']")
+        competition.judgement_id = detail['nom'] if detail['nom']
+      end
+
       competition.save!
     end
   end
@@ -122,9 +129,9 @@ class EntryFile
       horse.born_year = equide['dnaiss'].to_s.split('-').first
       horse.chip_no = equide['transpondeur']
       horse.sex = SEX[equide['sexe']]
-      horse.sire = Equipe::HorseName.new(equide.css('> pere').attr('nom').value).normalize if equide.css('> pere').present?
-      horse.dam = Equipe::HorseName.new(equide.css('mere').attr('nom').value).normalize if equide.css('mere').present?
-      horse.dam_sire = Equipe::HorseName.new(equide.css('> mere pere').attr('nom').value).normalize if equide.css('> mere pere').present?
+      horse.sire = Equipe::HorseName.new(equide.at_css('> pere').attr('nom')).normalize if equide.at_css('> pere')
+      horse.dam = Equipe::HorseName.new(equide.at_css('mere').attr('nom')).normalize if equide.at_css('mere')
+      horse.dam_sire = Equipe::HorseName.new(equide.at_css('> mere pere').attr('nom')).normalize if equide.at_css('> mere pere')
       horse.save!
       horse_index[equide['sire']] = horse.id
       horse
