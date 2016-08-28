@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826131716) do
+ActiveRecord::Schema.define(version: 20160828125338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,15 @@ ActiveRecord::Schema.define(version: 20160826131716) do
 
   create_table "competitions", force: :cascade do |t|
     t.integer  "show_id"
-    t.date     "starts_on",      null: false
+    t.date     "starts_on",                    null: false
     t.string   "competition_no"
     t.string   "name"
     t.string   "discipline"
     t.string   "judgement_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "late_entry_fee"
+    t.string   "horse_pony",     default: "R", null: false
     t.index ["show_id"], name: "index_competitions_on_show_id", using: :btree
   end
 
@@ -63,8 +64,9 @@ ActiveRecord::Schema.define(version: 20160826131716) do
     t.string   "race"
     t.integer  "height"
     t.string   "sex"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "category",   default: "H", null: false
     t.index ["licence"], name: "index_horses_on_licence", using: :btree
   end
 

@@ -27,7 +27,7 @@ class Equipe::Entries
   attr_reader :show
 
   def competitions
-    show.competitions.select(:id, :competition_no, :name, :starts_on, :discipline, :judgement_id, :late_entry_fee, 'true AS randomized', "'H'::text AS horse_pony", "'R'::text AS status")
+    show.competitions.select(:id, :competition_no, :name, :starts_on, :discipline, :horse_pony, :judgement_id, :late_entry_fee, 'true AS randomized', "'R'::text AS status", "'all_categories_together'::text AS category_merge")
   end
 
   def people
@@ -39,7 +39,7 @@ class Equipe::Entries
   end
 
   def horses
-    show.horses.select(:id, :licence, :name, :sire, :dam, :dam_sire, :born_year, :color, :breed, :race, :height, :sex, "'H'::text AS category")
+    show.horses.select(:id, :licence, :name, :sire, :dam, :dam_sire, :born_year, :color, :breed, :race, :height, :sex, :category)
   end
 
   def entries

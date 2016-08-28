@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EntryFile
 
   def initialize(content)
@@ -38,6 +39,9 @@ class EntryFile
     'H' => 'G'
   }
 
+  HORSE = 'R'
+  PONY = 'P'
+
   def organizer
     @organizer ||= Organizer.where(ffe_id: organizer_id).first_or_create(name: organizer_name)
   end
@@ -77,6 +81,7 @@ class EntryFile
       competition.name = item['nom_categorie']
       competition.discipline = discipline
       competition.late_entry_fee = item['montant_eng_terrain']
+      competition.horse_pony = pony?(item) ? PONY : HORSE
 
       if discipline == 'D'
         competition.judgement_id = item['nom_categorie']
@@ -123,6 +128,7 @@ class EntryFile
       horse = Horse.where(licence: equide['sire']).first_or_initialize
       horse.name = Equipe::HorseName.new(equide['nom']).normalize
       horse.height = equide['taille']
+      horse.category = fetch_category(equide)
       horse.race = equide['race']
       horse.breed = equide['code_race'].mb_chars.titlecase
       horse.color = equide['code_robe']
@@ -149,6 +155,27 @@ class EntryFile
       entry.rider_id = rider_index[rider_licence]
       entry.horse_id = horse_index[horse_licence]
       entry.save!
+    end
+  end
+
+  def pony?(epreuve)
+    epreuve['nom_categorie'].include?('Poney')
+  end
+
+  def fetch_category(equide)
+    height = equide['taille'].to_i
+    if (1..108).cover? height
+      'A'
+    elsif (109..131).cover? height
+      'B'
+    elsif (132..141).cover? height
+      'C'
+    elsif (142..149).cover? height
+      'D'
+    elsif (150..999).cover?(height) && (equide['race'].include?('PONEY') || equide['race'].include?('PONY'))
+      'E'
+    else
+      'H'
     end
   end
 
