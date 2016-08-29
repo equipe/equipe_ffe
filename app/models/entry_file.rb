@@ -51,7 +51,7 @@ class EntryFile
   end
 
   def organizer_name
-    doc.at_css('concours > organisateur').attr('nom').mb_chars.titlecase
+    doc.at_css('concours > organisateur').attr('nom').to_s.mb_chars.titlecase
   end
 
   def fetch_show
@@ -63,7 +63,7 @@ class EntryFile
   end
 
   def show_name
-    doc.at_css('concours').attr('nom').mb_chars.titlecase
+    doc.at_css('concours').attr('nom').to_s.mb_chars.titlecase
   end
 
   def discipline
@@ -97,8 +97,8 @@ class EntryFile
   def officials
     doc.css('officiel').each do |officiel|
       official = Person.where(licence: officiel['lic']).first_or_initialize
-      official.first_name = officiel['prenom'].mb_chars.titlecase
-      official.last_name = officiel['nom'].mb_chars.titlecase
+      official.first_name = officiel['prenom'].to_s.mb_chars.titlecase
+      official.last_name = officiel['nom'].to_s.mb_chars.titlecase
       official.official = true
       official.save!
     end
@@ -112,9 +112,9 @@ class EntryFile
   def riders
     doc.css('cavalier').each do |cavalier|
       rider = Person.where(licence: cavalier['lic']).first_or_initialize
-      rider.first_name = cavalier['prenom'].mb_chars.titlecase
-      rider.last_name = cavalier['nom'].mb_chars.titlecase
-      rider.club = Club.where(ffe_id: cavalier['club']).first_or_create(name: cavalier['nom_club'].mb_chars.titlecase)
+      rider.first_name = cavalier['prenom'].to_s.mb_chars.titlecase
+      rider.last_name = cavalier['nom'].to_s.mb_chars.titlecase
+      rider.club = Club.where(ffe_id: cavalier['club']).first_or_create(name: cavalier['nom_club'].to_s.mb_chars.titlecase)
       rider.birthday = cavalier['dnaiss']
       rider.region = Region.where(ffe_id: cavalier['region']).first_or_create(name: cavalier['nom_region'])
       rider.save!
@@ -130,8 +130,8 @@ class EntryFile
       horse.height = equide['taille']
       horse.category = fetch_category(equide)
       horse.race = equide['race']
-      horse.breed = equide['code_race'].mb_chars.titlecase
-      horse.color = equide['code_robe']
+      horse.breed = equide['code_race']
+      horse.color = equide['code_robe'].to_s.mb_chars.titlecase
       horse.born_year = equide['dnaiss'].to_s.split('-').first
       horse.chip_no = equide['transpondeur']
       horse.sex = SEX[equide['sexe']]
