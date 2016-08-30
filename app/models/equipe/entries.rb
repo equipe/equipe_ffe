@@ -35,7 +35,7 @@ class Equipe::Entries
   end
 
   def clubs
-    show.clubs.select(:id, :name, 'clubs.ffe_id AS logo_id', "'ffe'::text AS logo_group")
+    show.clubs.select(:id, :name, "'FRA'::text AS logo_id", "'flags512-shadow'::text AS logo_group")
   end
 
   def horses
