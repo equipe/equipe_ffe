@@ -1,4 +1,6 @@
 class File::EntriesController < ApplicationController
+  wrap_parameters false
+
   def create
     entry_file = EntryFile.new(request.body)
     if entry_file.valid?
