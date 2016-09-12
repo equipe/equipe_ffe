@@ -6,7 +6,7 @@ class File::ResultsController < ApplicationController
     # TODO Implement conversion
     Rails.logger.info "GOT #{results.inspect}"
     # render json: results
-    render json: { 'errors' => ['This does not work, meaningful error message'] }
+    render json: { 'errors' => ['This does not work, meaningful error message'] }, status: :unprocessable_entity
   end
 
 end
