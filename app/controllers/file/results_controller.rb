@@ -5,7 +5,8 @@ class File::ResultsController < ApplicationController
     results = JSON.parse(request.body.read)
     # TODO Implement conversion
     Rails.logger.info "GOT #{results.inspect}"
-    render json: results
+    # render json: results
+    render json: { 'errors' => ['This does not work, meaningful error message'] }
   end
 
 end
