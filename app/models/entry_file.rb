@@ -82,11 +82,12 @@ class EntryFile
       competition.discipline = discipline
       competition.late_entry_fee = item['montant_eng_terrain']
       competition.horse_pony = pony?(item) ? PONY : HORSE
+      competition.profil_detail = item['profil_detail']
 
       if discipline == 'D'
         competition.judgement_id = item['nom_categorie']
       else
-        detail = item.at_css("profil > resultat > detail[id='#{item['profil_detail']}']")
+        detail = item.at_css("profil > resultat > detail[id='#{competition.profil_detail}']")
         competition.judgement_id = detail['nom'] if detail['nom']
       end
 

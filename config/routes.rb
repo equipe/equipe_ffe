@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :results, only: :create
   resources :shows, only: [] do
     resources :entries, only: :index, controller: 'shows/entries'
+    resources :results, only: :index, controller: 'shows/results'
   end
 end

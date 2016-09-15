@@ -3,10 +3,8 @@ class File::ResultsController < ApplicationController
 
   def create
     results = JSON.parse(request.body.read)
-    # TODO Implement conversion
-    Rails.logger.info "GOT #{results.inspect}"
-    # render json: results
-    render json: { 'errors' => ['This does not work, meaningful error message'] }, status: :unprocessable_entity
+    show = Show.find(results.dig('show', 'foreign_id'))
+    render xml: ResultFile.new(show, results)
   end
 
 end
