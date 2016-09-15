@@ -11,12 +11,14 @@ class ResultFile
         xml.info 'logiciel' => 'Tests', 'version' => '0.0.0'
         xml.concours 'num' => show.ffe_id do
           results['competitions'].pluck('id', 'foreign_id').each do |equipe_competition_id, competition_id|
-            competition = Competition.find(competition_id)
-            starts = results['starts'].select { |start| start['competition_id'] == equipe_competition_id }
-            starts.each do |start|
-              entry = Entry.find_by(id: start['foreign_id'])
-              xml.engagement 'id' => entry&.ffe_id, 'dossard' => start['start_no'] do
-                write_results competition, start, xml
+            competition = Competition.find_by(id: competition_id)
+            if competition
+              starts = results['starts'].select { |start| start['competition_id'] == equipe_competition_id }
+              starts.each do |start|
+                entry = Entry.find_by(id: start['foreign_id'])
+                xml.engagement 'id' => entry&.ffe_id, 'dossard' => start['start_no'] do
+                  write_results competition, start, xml
+                end
               end
             end
           end
@@ -66,7 +68,6 @@ class ResultFile
             when 'dressage'
               xml.score 'num' => JUDGE_BY[result['judge_by']], 'score' => format_percent(result['percent'])
             when 'dressage_total'
-              binding.pry
               xml.score 'num' => 6, 'score' => format_percent(result['percent'])
             end
           end
