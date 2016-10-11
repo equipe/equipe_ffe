@@ -88,7 +88,7 @@ class EntryFile
         competition.judgement_id = item['nom_categorie']
       else
         detail = item.at_css("profil > resultat > detail[id='#{competition.profil_detail}']")
-        competition.judgement_id = detail['nom'] if detail['nom']
+        competition.judgement_id = detail['nom'] if detail && detail['nom']
       end
 
       competition.save!
