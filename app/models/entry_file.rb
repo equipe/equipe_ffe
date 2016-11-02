@@ -79,7 +79,7 @@ class EntryFile
       competition = show.competitions.where(competition_no: item['num']).first_or_initialize
       competition.starts_on = item['date']
       competition.name = item['nom_categorie']
-      competition.discipline = discipline
+      competition.discipline = DISCIPLINE[item['discipline']] || discipline
       competition.late_entry_fee = item['montant_eng_terrain']
       competition.horse_pony = pony?(item) ? PONY : HORSE
       competition.profil_detail = item['profil_detail']
