@@ -25,7 +25,7 @@ class ResultFile
                   xml.engagement engagement_attributes do
                     if entry&.rider&.licence != result_riders.dig(start['rider_id'], 'license')
                       cavalier_attributes = {}
-                      cavalier_attributes[:lic] = result_riders[start['rider_id']]
+                      cavalier_attributes[:lic] = result_riders.dig(start['rider_id'], 'license')
                       cavalier_attributes[:changement] = true if entry.present?
                       xml.cavalier cavalier_attributes
                     end
