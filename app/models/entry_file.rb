@@ -91,6 +91,59 @@ class EntryFile
         competition.judgement_id = detail['nom'] if detail && detail['nom']
       end
 
+      if competition.profil_detail
+        detail = doc.at_css("concours > profil > resultat > detail[id='#{competition.profil_detail}']")
+        competitions = detail.css('> epreuve > manche').map do |manche|
+
+          # <epreuve>
+          #   <manche num="1" bareme="2 phases Barème A sans chrono - A au chrono" concerne="M">
+          #     <score num="2" nom="Temps accordé phase 1" unite="T" nom_unite="Temps"/>
+          #     <score num="5" nom="Temps accordé phase 2" unite="T" nom_unite="Temps" obligatoire="true"/>
+          #   </manche>
+          # </epreuve>
+
+          scores = manche.css('score').map do |score|
+            {
+              num: score['num'],
+              nom: score['nom'],
+              unite: score['unite'],
+              nom_unite: score['nom_unite'],
+              obligatoire: score['obligatoire']
+            }
+          end
+
+          {
+            num: manche['num'],
+            bareme: manche['bareme'],
+            concerne: manche['num'],
+            scores: scores
+          }
+        end
+
+        starts = detail.css('> manche').map do |manche|
+          scores = manche.css('score').map do |score|
+            {
+              num: score['num'],
+              nom: score['nom'],
+              unite: score['unite'],
+              nom_unite: score['nom_unite']
+            }
+          end
+
+          {
+            num: manche['num'],
+            bareme: manche['bareme'],
+            concerne: manche['concerne'],
+            scores: scores
+          }
+        end
+
+        competition.result_details = {
+          competitions: competitions,
+          starts: starts
+        }
+      end
+
       competition.save!
     end
   end
