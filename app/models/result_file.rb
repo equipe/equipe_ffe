@@ -255,6 +255,9 @@ class ResultFile
     end
   end
 
+  def write_result_dressage_details(competition, result_competition, xml)
+  end
+
   def result_riders
     @result_riders ||= results['people'].index_by { |attrs| attrs['id'] }
   end
