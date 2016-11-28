@@ -19,9 +19,12 @@ class ResultFile
                 starts.each do |start|
                   entry = Entry.find_by(id: start['foreign_id'])
                   engagement_attributes = {}
-                  engagement_attributes['id'] = entry&.ffe_id
-                  engagement_attributes['dossard'] = start['start_no']
-                  engagement_attributes['terrain'] = entry.blank? if entry.blank?
+                  if entry
+                    engagement_attributes['id'] = entry.ffe_id
+                    engagement_attributes['dossard'] = entry.start_no
+                  else
+                    engagement_attributes['terrain'] = true
+                  end
                   xml.engagement engagement_attributes do
                     if entry&.rider&.licence != result_riders.dig(start['rider_id'], 'license')
                       cavalier_attributes = {}
@@ -42,8 +45,8 @@ class ResultFile
                     write_results competition, start, xml
                   end
                 end
+                write_result_details competition, result_competition, xml
               end
-              write_result_details competition, result_competition, xml
             end
           end
         end
