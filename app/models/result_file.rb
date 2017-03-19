@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class ResultFile
+  ClubNotFound = Class.new(StandardError)
+
   def initialize(show, results = {})
     @show = show
     @results = results
@@ -39,6 +41,7 @@ class ResultFile
                       xml.equide equide_attributes
                     end
                     club = Club.find_by(id: result_clubs.dig(result_riders.dig(start['rider_id'], 'club_id'), 'foreign_id'))
+                    raise ClubNotFound, "#{result_riders.dig(start['rider_id'], 'first_name')} #{result_riders.dig(start['rider_id'], 'last_name')} club not found" unless club
                     if entry&.rider&.club&.ffe_id != club.ffe_id
                       xml.club num: club.ffe_id
                     end
