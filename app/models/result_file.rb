@@ -211,7 +211,6 @@ class ResultFile
               when 'Total pénalités'
                 start['results'].detect { |result| result['round_no'] == manche['num'].to_i }&.dig('faults')
               else
-                binding.pry if competition.profil_detail.to_i == 3
                 raise "Don't know how to get #{score['nom']} profile #{competition.profil_detail}"
               end
               if status.blank?
