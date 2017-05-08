@@ -208,7 +208,7 @@ class ResultFile
                 end
               when 'Total Pénalités'
                 start['results'].detect { |result| result['type'] == 'show_jumping_total' }&.dig('faults')
-              when 'Total pénalités'
+              when 'Total pénalités', 'Score sur la piste'
                 start['results'].detect { |result| result['round_no'] == manche['num'].to_i }&.dig('faults')
               else
                 raise "Don't know how to get #{score['nom']} profile #{competition.profil_detail}"
