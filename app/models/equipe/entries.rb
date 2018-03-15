@@ -7,7 +7,7 @@ class Equipe::Entries
   def as_json(*)
     {
       show: {
-        id: show.id,
+        id: show.id.to_s,
         name: show.name,
         starts_on: show.starts_on,
         ends_on: show.ends_on,
@@ -55,6 +55,8 @@ class Equipe::Entries
     show.horses.select(:id, :licence, :name, :sire, :dam, :dam_sire, :born_year, :color, :breed, :race, :height, :sex, :category).map do |horse|
       attrs = horse.attributes
       attrs['id'] = attrs['id'].to_s
+      attrs['born_year'] = attrs['born_year'].to_s
+      attrs['height'] = attrs['height'].to_s
       attrs
     end
   end
