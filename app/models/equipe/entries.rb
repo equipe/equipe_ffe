@@ -27,19 +27,19 @@ class Equipe::Entries
   attr_reader :show
 
   def competitions
-    show.competitions.select('id::text AS id', :competition_no, :name, :starts_on, :discipline, :horse_pony, :judgement_id, :late_entry_fee, 'true AS randomized', "'N'::text AS status", "'all_categories_together'::text AS category_merge")
+    show.competitions.select('competitions.id::text AS id', :competition_no, :name, :starts_on, :discipline, :horse_pony, :judgement_id, :late_entry_fee, 'true AS randomized', "'N'::text AS status", "'all_categories_together'::text AS category_merge")
   end
 
   def people
-    show.people.select('id::text AS id', :first_name, :last_name, :licence, 'birthday AS person_no', "'FRA'::text AS country", :official, 'club_id::text AS club_id')
+    show.people.select('people.id::text AS id', :first_name, :last_name, :licence, 'birthday AS person_no', "'FRA'::text AS country", :official, 'club_id::text AS club_id')
   end
 
   def clubs
-    show.clubs.select('id::text AS id', :name, 'clubs.ffe_id AS logo_id', "'ffe'::text AS logo_group")
+    show.clubs.select('clubs.id::text AS id', :name, 'clubs.ffe_id AS logo_id', "'ffe'::text AS logo_group")
   end
 
   def horses
-    show.horses.select('id::text AS id', :licence, :name, :sire, :dam, :dam_sire, :born_year, :color, :breed, :race, :height, :sex, :category)
+    show.horses.select('horses.id::text AS id', :licence, :name, :sire, :dam, :dam_sire, :born_year, :color, :breed, :race, :height, :sex, :category)
   end
 
   def entries
