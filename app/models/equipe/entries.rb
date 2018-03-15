@@ -30,7 +30,7 @@ class Equipe::Entries
     show.competitions.select(:id, :competition_no, :name, :starts_on, :discipline, :horse_pony, :judgement_id, :late_entry_fee, 'true AS randomized', "'N'::text AS status", "'all_categories_together'::text AS category_merge").map do |competition|
       attrs = competition.attributes
       attrs['id'] = attrs['id'].to_s
-      attrs
+      attrs.compact
     end
   end
 
@@ -39,7 +39,7 @@ class Equipe::Entries
       attrs = person.attributes
       attrs['id'] = attrs['id'].to_s
       attrs['club_id'] = attrs['club_id'].to_s
-      attrs
+      attrs.compact
     end
   end
 
@@ -47,7 +47,7 @@ class Equipe::Entries
     show.clubs.select(:id, :name, 'clubs.ffe_id AS logo_id', "'ffe'::text AS logo_group").map do |club|
       attrs = club.attributes
       attrs['id'] = attrs['id'].to_s
-      attrs
+      attrs.compact
     end
   end
 
@@ -57,7 +57,7 @@ class Equipe::Entries
       attrs['id'] = attrs['id'].to_s
       attrs['born_year'] = attrs['born_year'].to_s
       attrs['height'] = attrs['height'].to_s
-      attrs
+      attrs.compact
     end
   end
 
@@ -69,7 +69,7 @@ class Equipe::Entries
       attrs['rider_id'] = attrs['rider_id'].to_s
       attrs['horse_id'] = attrs['horse_id'].to_s
       attrs['payer_id'] = attrs['payer_id'].to_s
-      attrs
+      attrs.compact
     end
   end
 end
